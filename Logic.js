@@ -1,7 +1,3 @@
-// ============================================
-// ✅ PLAYLISTS — fetch() bilkul nahi
-// Seedha yahan data likho — 100% reliable
-// ============================================
 const playlists = [
   {
     title: "Playlist 1",
@@ -62,18 +58,12 @@ const playlists = [
     ]
   }
 ];
-
-// ============================================
-// ✅ STATE
-// ============================================
 let songs         = [];
 let currentSong   = 0;
 let currentFolder = "";
 let audio         = new Audio();
 
-// ============================================
-// ✅ HTML ELEMENTS
-// ============================================
+
 const playBtn  = document.getElementById("playBtn");
 const pauseBtn = document.getElementById("pauseBtn");
 const nextBtn  = document.getElementById("nextBtn");
@@ -86,9 +76,7 @@ const range    = document.getElementById("ran");
 const vol      = document.getElementById("vol");
 const muteIcon = document.getElementById("muteIcon");
 
-// ============================================
-// ✅ HELPERS
-// ============================================
+
 function updateSongName() {
   songName.innerText = songs[currentSong]?.name?.replace(".mp3", "") || "";
 }
@@ -112,9 +100,7 @@ function playSong(index) {
   showPause();
 }
 
-// ============================================
-// ✅ CARDS BANAO — koi fetch nahi
-// ============================================
+
 function loadAllPlaylists() {
   const container = document.querySelector(".card-countiner");
   container.innerHTML = "";
@@ -146,9 +132,8 @@ function loadAllPlaylists() {
   });
 }
 
-// ============================================
-// ✅ SIDEBAR SONG LIST
-// ============================================
+
+// side bar song list
 function renderSongs() {
   const songList = document.getElementById("songList");
   songList.innerHTML = "";
@@ -177,9 +162,8 @@ function renderSongs() {
   });
 }
 
-// ============================================
-// ✅ PLAY / PAUSE
-// ============================================
+
+// play pause btn events
 playBtn.addEventListener("click", () => {
   if (!audio.src) return;
   audio.play();
@@ -190,10 +174,8 @@ pauseBtn.addEventListener("click", () => {
   audio.pause();
   showPlay();
 });
+// next previoise btn event
 
-// ============================================
-// ✅ NEXT / PREV
-// ============================================
 nextBtn.addEventListener("click", () => {
   if (!songs.length) return;
   playSong((currentSong + 1) % songs.length);
@@ -206,9 +188,9 @@ prevBtn.addEventListener("click", () => {
 
 audio.addEventListener("ended", () => nextBtn.click());
 
-// ============================================
-// ✅ TIMER
-// ============================================
+
+// timer updation
+
 audio.addEventListener("timeupdate", () => {
   let m  = Math.floor(audio.currentTime / 60);
   let s  = Math.floor(audio.currentTime % 60);
@@ -219,9 +201,8 @@ audio.addEventListener("timeupdate", () => {
   timerDiv.innerText = `${m}:${s} / ${dm}:${ds}`;
 });
 
-// ============================================
-// ✅ SEEKBAR
-// ============================================
+
+// seekbar working
 let isDragging = false;
 
 audio.addEventListener("timeupdate", () => {
@@ -247,9 +228,7 @@ seekbar.addEventListener("click", (e) => {
   audio.currentTime = (e.offsetX / seekbar.clientWidth) * audio.duration;
 });
 
-// ============================================
-// ✅ VOLUME
-// ============================================
+// VOLUME event
 range.addEventListener("input", (e) => {
   audio.volume = parseInt(e.target.value) / 100;
 });
@@ -270,9 +249,8 @@ muteIcon.addEventListener("click", () => {
   vol.style.display      = "block";
 });
 
-// ============================================
-// ✅ HAMBURGER / CLOSE
-// ============================================
+
+// HAMBURGER / CLOSE working
 document.querySelector(".humbergar").addEventListener("click", () => {
   document.querySelector(".left").style.left = "0";
 });
@@ -281,7 +259,4 @@ document.querySelector(".close").addEventListener("click", () => {
   document.querySelector(".left").style.left = "-100%";
 });
 
-// ============================================
-// ✅ START
-// ============================================
 loadAllPlaylists();
